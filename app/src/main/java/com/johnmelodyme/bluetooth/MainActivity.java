@@ -1,5 +1,9 @@
 package com.johnmelodyme.bluetooth;
-
+/*
+* 나는 블루투스에서 배우고 있기 때문에나는이
+* 프로젝트를 시작했다. 블루투스는 나를 위해
+* 어렵다,하지만 난 튜토리얼로하고있다.
+ */
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothAdapter;
