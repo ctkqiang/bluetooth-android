@@ -3,4 +3,5 @@
     <string name="bluetooth_not_supported_in_this_device">BLUETOOTH IS NOT SUPPORTED ON THIS DEVICE</string>
     <string name="preference">Preference</string>
     <string name="Other">Other</string>
+    <string name="err">Application will not work without bluetooth enabled</string>
 </resources>

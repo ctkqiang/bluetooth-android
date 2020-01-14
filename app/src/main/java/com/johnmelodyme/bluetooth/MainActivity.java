@@ -6,14 +6,19 @@ package com.johnmelodyme.bluetooth;
  */
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -25,15 +30,20 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  */
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getName();
+    private Context context = MainActivity.this;
+    private static final String THIS_APPLICATION = MainActivity.class.getName();
     private BluetoothAdapter BLUETOOTHADAPTER;
     private Button DISCOVERED_NEARBY_BLUETOOTH_DEVICE, APPLICATION_SETTING;
     private int  REQUEST_ENABLE_BLUETOOTH = 0b1;
+    private  AlertDialog.Builder ALERTDIALOGUE;
+    private ListView NEARBY_DEVICE_LIST;
+    private ArrayAdapter<String> ADAPTER;
 
     private void INIT() {
         BLUETOOTHADAPTER = BluetoothAdapter.getDefaultAdapter();
         DISCOVERED_NEARBY_BLUETOOTH_DEVICE = (Button) findViewById(R.id.BluetoothDevice);
         APPLICATION_SETTING = (Button) findViewById(R.id.setting);
+        ALERTDIALOGUE = (AlertDialog.Builder) new AlertDialog.Builder(context);
     }
 
     @Override
@@ -43,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void BLUETOOTH(){
+        String ERR;
+        ERR = getResources().getString(R.string.err);
         if (BLUETOOTHADAPTER == null){
             //MAGIC("BLUETOOTH IS NOT ");
             String NOT_SUPPPORTED;
@@ -51,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     .setTitleText("Oops...")
                     .setContentText(NOT_SUPPPORTED)
                     .show();
-            Log.w(TAG, NOT_SUPPPORTED);
+            Log.w(THIS_APPLICATION, NOT_SUPPPORTED);
         } else {
             if (!(BLUETOOTHADAPTER.isEnabled())){
                 /*
@@ -59,10 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 REQUEST_BLUETOOTH = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(REQUEST_BLUETOOTH, REQUEST_ENABLE_BLUETOOTH);
                  */
-                Log.w(TAG, "REQUESTING USER BLUETOOTH");
+
+                Log.w(THIS_APPLICATION, "REQUESTING USER BLUETOOTH");
                 new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Enable Bluetooth?")
-                        .setContentText("Application will not work without bluetooth enabled")
+                        .setContentText(ERR)
                         .setConfirmText("Absolutely Mate")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
@@ -74,13 +87,18 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelButton("Hell No", new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
-                                BLUETOOTHADAPTER.disable();
+                                String ERR;
+                                ERR = getResources().getString(R.string.err);
+                                new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Oops...")
+                                        .setContentText(ERR)
+                                        .show();
                                 sDialog.dismissWithAnimation();
                             }
                         })
                         .show();
             } else {
-                Log.w(TAG, "REQUEST USER BLUETOOTH FAILED");
+                Log.w(THIS_APPLICATION, "REQUEST USER BLUETOOTH FAILED");
             }
         }
     }
@@ -103,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
         DISCOVERED_NEARBY_BLUETOOTH_DEVICE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                View ROWLIST = getLayoutInflater().inflate(R.layout.nearby, null);
+                NEARBY_DEVICE_LIST = ROWLIST.findViewById(R.id.NEARBY);
+                //ADAPTER = new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, //something);
 
             }
         });
