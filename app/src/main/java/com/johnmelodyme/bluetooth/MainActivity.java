@@ -50,10 +50,31 @@ public class MainActivity extends AppCompatActivity {
             Log.w(TAG, NOT_SUPPPORTED);
         } else {
             if (!(BLUETOOTHADAPTER.isEnabled())){
+                /*
                 Intent REQUEST_BLUETOOTH;
                 REQUEST_BLUETOOTH = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(REQUEST_BLUETOOTH, REQUEST_ENABLE_BLUETOOTH);
+                 */
                 Log.w(TAG, "REQUESTING USER BLUETOOTH");
+                new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Enable Bluetooth?")
+                        .setContentText("Application will not work without bluetooth enabled")
+                        .setConfirmText("Absolutely Mate")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                BLUETOOTHADAPTER.enable();
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setCancelButton("Hell No", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                BLUETOOTHADAPTER.disable();
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
             } else {
                 Log.w(TAG, "REQUEST USER BLUETOOTH FAILED");
             }
