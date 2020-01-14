@@ -7,6 +7,7 @@ package com.johnmelodyme.bluetooth;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,13 +27,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     private BluetoothAdapter BLUETOOTHADAPTER;
-    private Button DISCOVERED_NEARBY_BLUETOOTHDEVICE, APPLICATION_SETTING;
+    private Button DISCOVERED_NEARBY_BLUETOOTH_DEVICE, APPLICATION_SETTING;
     private int  REQUEST_ENABLE_BLUETOOTH = 0b1;
 
     private void INIT() {
         BLUETOOTHADAPTER = BluetoothAdapter.getDefaultAdapter();
-
-        DISCOVERED_NEARBY_BLUETOOTHDEVICE = (Button) findViewById(R.id.BluetoothDevice);
+        DISCOVERED_NEARBY_BLUETOOTH_DEVICE = (Button) findViewById(R.id.BluetoothDevice);
         APPLICATION_SETTING = (Button) findViewById(R.id.setting);
     }
 
@@ -99,5 +99,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(TOSETTING);
             }
         });
+
+        DISCOVERED_NEARBY_BLUETOOTH_DEVICE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void Magic(String Message){
+        Context context;
+        context = MainActivity.this;
+        Toast.makeText(context, Message, Toast.LENGTH_SHORT)
+                .show();
     }
 }
