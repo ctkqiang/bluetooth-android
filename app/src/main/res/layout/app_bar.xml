@@ -9,9 +9,10 @@
 
     <Button
         android:id="@+id/BluetoothDevice"
-        android:layout_width="65dp"
-        android:layout_height="54dp"
+        android:layout_width="38dp"
+        android:layout_height="33dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:background="@android:drawable/stat_sys_data_bluetooth"
         android:gravity="left"
         app:layout_constraintEnd_toStartOf="@+id/setting"
@@ -20,9 +21,9 @@
 
     <Button
         android:id="@+id/setting"
-        android:layout_width="54dp"
-        android:layout_height="55dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="36dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="8dp"
         android:background="@android:drawable/ic_menu_preferences"
         android:gravity="left"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,6 +35,7 @@
         android:layout_width="235dp"
         android:layout_height="53dp"
         android:layout_marginStart="2dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="cursive"
         android:text="@string/app_name"
         android:textAlignment="center"
